@@ -11,7 +11,7 @@ $(document).ready(function() {
 function initializePage() {
 	$('.project a').click(addProjectDetails);
 
-	$('#colorBtn').click(randomizeColors);
+	//$('#colorBtn').click(randomizeColors);
 }
 
 /*
@@ -29,9 +29,10 @@ function addProjectDetails(e) {
 	console.log("User clicked on project " + idNumber);
 	var url = "/project/"+idNumber;
 	console.log(url);
-	$.get(url, addProject);
-}
-
-function addProject(result) {
-	console.log(result)
+	$.get(url, function(result) {
+		console.log(result)
+		var html = "<h3>"+result.title+"</h3><h3>"+result.date+"</h3>"+
+			"<img class='detailsImage' src="+result.image+"></image><p>"+result.summary+"</p>"
+		$('.project#'+projectID+' .details').html(html)
+	});
 }
